@@ -22,12 +22,17 @@
 int turnSpeed = 120;
 
 //Camera
+#define YELLOW 1
+#define BLUE 2
+#define RED 3
+
 Pixy pixy;
 Block blocks[10];
 int midPos;
 float mid = 0, sum = 0;
 int high = 117 ; //Mid Range
 int low = 109; // Mid Range
+
 
 
 void setup()
@@ -39,7 +44,7 @@ void setup()
 
 void loop() {
   for (int i = 0; i < 100; i++) {
-    getSpecialBlocks(2);
+    getSpecialBlocks(3);
   }
 
   pointToBlock(blocks[0], 10);

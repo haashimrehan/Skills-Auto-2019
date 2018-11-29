@@ -1,3 +1,11 @@
+/*
+ * Signatures
+ * 1: Yellow Cube
+ * 2: Blue Cube
+ * 3: Red Cube
+ */
+
+
 float getMidpoint (Block _blocks []) {//Returns the midpoint of the top two blocks in an array
   float midpoint = (_blocks [0].x + _blocks [1].x) * 2;
   return midpoint;
@@ -24,7 +32,7 @@ boolean pointToBlock (Block target, int hedge) {//Points to a Block that is sent
   return false;
 }
 
-void getSpecialBlocks (int signiture) {
+void getSpecialBlocks (int signiture) { //1-7
   //Block blocks [pixy.getBlocks()] = {NULL};//Makes an Array of Blocks
   //Block blocks [pixy.getBlocks()];//Makes an Array of Blocks
   int numYellow = 0;//Ctr to count how many blocks it has seen
