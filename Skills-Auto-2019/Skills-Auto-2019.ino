@@ -1,7 +1,4 @@
-#include <Pixy.h>
-#include <PixyI2C.h>
-#include <PixySPI_SS.h>
-#include <TPixy.h>
+#include "PixyLib.h"
 
 // Clockwise and counter-clockwise definitions.
 // Depending on how you wired your motors, you may need to swap.
@@ -22,9 +19,11 @@
 int turnSpeed = 120;
 
 //Camera
+PixyLib cam;
 #define YELLOW 1
 #define BLUE 2
 #define RED 3
+#define GREEN 5
 
 Pixy pixy;
 Block blocks[10];
@@ -40,10 +39,10 @@ void setup() {
 }
 
 void loop() {
-    getSpecialBlocks(RED);
-  
+  cam.getSpecialBlocks(RED);
 
-  blocks[0].print();
+  pointToBlock(cam.blocks[0], 5);
+
   //Serial.println(blocks[0].x);
 }
 
