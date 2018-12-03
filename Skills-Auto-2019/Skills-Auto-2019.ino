@@ -33,21 +33,17 @@ float mid = 0, sum = 0;
 int high = 117 ; //Mid Range
 int low = 109; // Mid Range
 
-
-
-void setup()
-{
-  Serial.begin(115200);
-  pixy.init();//Initializes Camera
+void setup() {
+  Serial.begin(19200);
   setupArdumoto(); // Set all pins as outputs
+  pixy.init();//Initializes Camera
 }
 
 void loop() {
-  for (int i = 0; i < 100; i++) {
-    getSpecialBlocks(3);
-  }
+    getSpecialBlocks(RED);
+  
 
-  pointToBlock(blocks[0], 10);
+  blocks[0].print();
+  //Serial.println(blocks[0].x);
 }
-
 

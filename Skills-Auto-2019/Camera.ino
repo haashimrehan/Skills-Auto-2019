@@ -15,18 +15,18 @@ boolean pointToBlock (Block target, int hedge) {//Points to a Block that is sent
   int width = 320; // pixy cam width
   if (target.x > width / 2 + hedge) {
     //Turns Left until the blocks x val is within a range
-    turnLeft();
-    Serial.println("LEFT");
+    turnRight();
+    Serial.print("RIGHT");
   }
   else if (target.x < width / 2 - hedge) {
     //Turns Right until the blocks x val is within a range
-    turnRight();
-    Serial.println("RIGHT");
+    turnLeft();
+    Serial.print("LEFT");
   }
   else if (target.x > width / 2 - hedge && target.x < width / 2 + hedge) {
     //Stops once the block is within a range
-    Serial.println("CENTER");
-    drive(0);
+    Serial.print("CENTER");
+  //  drive(0);
     return true;
   }
   return false;
@@ -38,7 +38,7 @@ void getSpecialBlocks (int signiture) { //1-7
   int numYellow = 0;//Ctr to count how many blocks it has seen
   for (int i = 0; i < pixy.getBlocks(); i++) {
     if (pixy.blocks[i].signature == signiture) {//Checks if signiture of current block matches signiture sent in
-      //Pushes Yellow Block into array created earlier
+      //Pushes  Block into array created earlier
       blocks [numYellow] = (pixy.blocks[i]);
       numYellow++;
     }

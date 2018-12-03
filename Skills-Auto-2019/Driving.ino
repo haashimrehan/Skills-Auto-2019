@@ -11,13 +11,9 @@ void drive(int speed) {
 
   int newSpeedA = map(speed, -10, 10, -255, 255);
   int newSpeedB = map(speed, -10, 10, -255, 255);
-  //int leftDir = 0;
-  //int rightDir = 0;
 
   driveArdumoto(MOTOR_A, leftDir, abs(newSpeedA));
   driveArdumoto(MOTOR_B, rightDir, abs(newSpeedB));
-  //  robot.setSpeed('A', -abs(newSpeedA));
-  //  robot.setSpeed('B', abs(newSpeedB));
 }
 
 
