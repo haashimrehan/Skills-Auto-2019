@@ -8,7 +8,6 @@
 #endif
 
 #include <TPixy.h>
-#include <Pixy.h>
 #include <PixyI2C.h>
 #include <Wire.h>
 
@@ -22,6 +21,7 @@ class PixyLib {
     void begin();
     float getMidpoint (Block _blocks []);
     void getSpecialBlocks (int signiture);
+    void printBlocks();
 
     //Objects
     bool getBlock();

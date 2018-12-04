@@ -16,16 +16,17 @@
 #define DIRB 13 // Direction control for motor B
 #define PWMB 11 // PWM control (speed) for motor B
 
-int turnSpeed = 120;
+int turnSpeed = 80;
 
 //Camera
 PixyLib cam;
+//Colour Signatures that are programmed in PixyMon
 #define YELLOW 1
 #define BLUE 2
 #define RED 3
 #define GREEN 5
 
-Pixy pixy;
+//Pixy pixy;
 Block blocks[10];
 int midPos;
 float mid = 0, sum = 0;
@@ -33,15 +34,16 @@ int high = 117 ; //Mid Range
 int low = 109; // Mid Range
 
 void setup() {
-  Serial.begin(19200);
+  Serial.begin(9600);
   setupArdumoto(); // Set all pins as outputs
-  pixy.init();//Initializes Camera
+  cam.begin();
 }
 
 void loop() {
   cam.getSpecialBlocks(RED);
-
-  pointToBlock(cam.blocks[0], 5);
+ 
+  // cam.printBlocks();
+  pointToBlock(cam.blocks[0], 20);
 
   //Serial.println(blocks[0].x);
 }

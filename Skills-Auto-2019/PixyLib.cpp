@@ -14,6 +14,10 @@ void PixyLib::begin() {
   pixy.init();
 }
 
+void PixyLib::printBlocks() {
+  pixy.blocks[0].print();
+}
+
 bool PixyLib::getBlock() {
   return (bool)pixy.getBlocks();
 }
@@ -25,8 +29,7 @@ float PixyLib::getMidpoint (Block _blocks []) {//Returns the midpoint of the top
 
 
 
-void PixyLib::getSpecialBlocks (int signiture) { //1-7
-
+void PixyLib::getSpecialBlocks (int signiture) { //Signature: # between 1-7 that corresponds to a colour
   //Block blocks [pixy.getBlocks()] = {NULL};//Makes an Array of Blocks
   //Block blocks [pixy.getBlocks()];//Makes an Array of Blocks
   int numYellow = 0;//Ctr to count how many blocks it has seen

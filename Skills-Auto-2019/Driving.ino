@@ -64,3 +64,14 @@ void setupArdumoto()
   digitalWrite(DIRA, LOW);
   digitalWrite(DIRB, LOW);
 }
+
+void testDriving() {
+  drive(10);
+  delay(2000);
+  turnLeft();
+  delay(2000);
+  turnRight();
+  delay(2000);
+  drive(-10);
+  delay(2000);
+}
