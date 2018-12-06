@@ -1,4 +1,5 @@
 #include "PixyLib.h"
+#include <NewPing.h>
 
 // Clockwise and counter-clockwise definitions.
 // Depending on how you wired your motors, you may need to swap.
@@ -25,13 +26,13 @@ PixyLib cam;
 #define BLUE 2
 #define RED 3
 #define GREEN 5
-
-//Pixy pixy;
 Block blocks[10];
 int midPos;
 float mid = 0, sum = 0;
-int high = 117 ; //Mid Range
-int low = 109; // Mid Range
+
+//Ultrasonic Sensor
+NewPing fPingSens(7, 7);
+int fPing;
 
 void setup() {
   Serial.begin(9600);
@@ -41,10 +42,8 @@ void setup() {
 
 void loop() {
   cam.getSpecialBlocks(RED);
- 
-  // cam.printBlocks();
-  pointToBlock(cam.blocks[0], 20);
+  readPing();
+  //pointToBlock(cam.blocks[0], 20);
 
-  //Serial.println(blocks[0].x);
 }
 
