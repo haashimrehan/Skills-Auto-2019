@@ -1,3 +1,7 @@
+void pickBlock() {
+  //if pingDist is < 7 and camera doesnt see red anymore; close claw
+}
+
 boolean pointToBlock (Block target, int hedge) {//Points to a Block that is sent in
   if (cam.getBlock()) { //Check if there is blocks
     return alignRobot(target, hedge);

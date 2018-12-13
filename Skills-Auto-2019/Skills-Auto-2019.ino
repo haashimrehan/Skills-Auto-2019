@@ -1,5 +1,9 @@
 #include "PixyLib.h"
 #include <NewPing.h>
+#include <Servo.h>
+
+//Servos
+Servo claw;
 
 // Clockwise and counter-clockwise definitions.
 // Depending on how you wired your motors, you may need to swap.
@@ -37,13 +41,14 @@ int fPing;
 void setup() {
   Serial.begin(9600);
   setupArdumoto(); // Set all pins as outputs
+  claw.attach(9);
   cam.begin();
 }
 
 void loop() {
   cam.getSpecialBlocks(RED);
   readPing();
-  //pointToBlock(cam.blocks[0], 20);
+  claw.write();
+  pointToBlock(cam.blocks[0], 20);
 
 }
-
