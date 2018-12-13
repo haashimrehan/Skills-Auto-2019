@@ -33,6 +33,7 @@ PixyLib cam;
 Block blocks[10];
 int midPos;
 float mid = 0, sum = 0;
+boolean noBlock;
 
 //Ultrasonic Sensor
 NewPing fPingSens(7, 7);
@@ -43,12 +44,12 @@ void setup() {
   setupArdumoto(); // Set all pins as outputs
   claw.attach(9);
   cam.begin();
+  claw.write(0);
 }
 
 void loop() {
   cam.getSpecialBlocks(RED);
   readPing();
-  claw.write();
-  pointToBlock(cam.blocks[0], 20);
-
+  
+pickBlock();
 }
