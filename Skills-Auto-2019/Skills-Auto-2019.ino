@@ -21,7 +21,7 @@ Servo claw;
 #define DIRB 13 // Direction control for motor B
 #define PWMB 11 // PWM control (speed) for motor B
 
-int turnSpeed = 80;
+int turnSpeed = 90;//80;
 
 //Camera
 PixyLib cam;
@@ -39,17 +39,30 @@ boolean noBlock;
 NewPing fPingSens(7, 7);
 int fPing;
 
+//Line Sensors
+int lSense = 0;
+int cSense = 0;
+int rSense = 0;
+
 void setup() {
   Serial.begin(9600);
   setupArdumoto(); // Set all pins as outputs
   claw.attach(9);
   cam.begin();
-  claw.write(0);
+  claw.write(0); // Start claw open
+
+  //Line sensors
+  pinMode(6, INPUT);
+  pinMode(5, INPUT);
+  pinMode(4, INPUT);
 }
 
 void loop() {
-  cam.getSpecialBlocks(RED);
-  readPing();
-  
-pickBlock();
+  // cam.getSpecialBlocks(RED);
+//  readPing();
+  readLines();
+  followLine();
+  // pickBlock();
+
+
 }

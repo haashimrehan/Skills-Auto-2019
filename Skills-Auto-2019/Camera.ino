@@ -1,4 +1,4 @@
-boolean pickBlock() {
+void pickBlock() {
   if (fPing < 10) {
     claw.write(180);
     drive(3);
@@ -8,7 +8,7 @@ boolean pickBlock() {
     drive(-4);
     delay(1000);
     while (true) {
-      drive(0);
+      drive(0); 
     }
   } else {
     pointToBlock(cam.blocks[0], 20);
