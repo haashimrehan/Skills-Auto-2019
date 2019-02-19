@@ -1,15 +1,15 @@
 
 void followLine() {
   //0 = white; 1 = black
-  if (cSense == 1) {
+  if (cSense == BLACK) {
     drive(3);
     //Serial.println("F");
   }
-else if (lSense == 1) {
+else if (lSense == BLACK) {
     turnRight();
    // Serial.println("L");
   }
-  else if (rSense == 1) {
+  else if (rSense == BLACK) {
     turnLeft();
    // Serial.println("R");
   }
@@ -27,11 +27,11 @@ void readLines() {
   cSense = digitalRead(5);
   rSense = digitalRead(4);
 
-  /*
+  
     Serial.print(lSense);
     Serial.print(" ");
     Serial.print(cSense);
     Serial.print(" ");
     Serial.print(rSense);
-    Serial.println();*/
+    Serial.println();
 }

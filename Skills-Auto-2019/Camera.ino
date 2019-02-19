@@ -7,9 +7,10 @@ void pickBlock() {
     delay(500);
     drive(-4);
     delay(1000);
-    while (true) {
-      drive(0); 
-    }
+  // while (true) {
+    //  drive(0); 
+    //}
+    state++;
   } else {
     pointToBlock(cam.blocks[0], 20);
   }

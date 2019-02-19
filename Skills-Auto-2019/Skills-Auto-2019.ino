@@ -2,6 +2,12 @@
 #include <NewPing.h>
 #include <Servo.h>
 
+//Default Parameters
+void findLine(int driveSpeed = 3);
+
+#define WHITE 0
+#define BLACK 1
+
 //Servos
 Servo claw;
 
@@ -21,7 +27,7 @@ Servo claw;
 #define DIRB 13 // Direction control for motor B
 #define PWMB 11 // PWM control (speed) for motor B
 
-int turnSpeed = 90;//80;
+int turnSpeed = 80;
 
 //Camera
 PixyLib cam;
@@ -44,6 +50,8 @@ int lSense = 0;
 int cSense = 0;
 int rSense = 0;
 
+int state = 0;
+
 void setup() {
   Serial.begin(9600);
   setupArdumoto(); // Set all pins as outputs
@@ -58,11 +66,39 @@ void setup() {
 }
 
 void loop() {
-  // cam.getSpecialBlocks(RED);
-//  readPing();
+  cam.getSpecialBlocks(RED);
+  readPing();
   readLines();
-  followLine();
-  // pickBlock();
 
+  if (state == 0) {
+    findLine();
+  } else if (state == 1) {
+    followLine();
+    if (cSense == BLACK) {
+      drive(0);
+      state = 2;
+    }
+  } else if (state == 2) {
+    pickBlock();
+  } else if (state == 3) {
+    turnSpeed = 75;
+    turnLeft();
+ //   delay(1000);
+    if (pointToBlock(cam.blocks[0], 20)) {
+      drive(0);
+      state = 4;
+    }
 
+  } else if (state == 4) {
+    turnSpeed = 80;
+    long startTime = millis();
+    while (millis() - startTime < 3000) { // time to drive to drop off location
+      pointToBlock(cam.blocks[0], 20);
+    }
+    drive(0);
+    state = 5;
+  } else if (state == 5) {
+    drive(0);
+  }
+  
 }
