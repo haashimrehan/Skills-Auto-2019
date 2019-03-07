@@ -1,3 +1,4 @@
+
 #include "PixyLib.h"
 #include <NewPing.h>
 #include <Servo.h>
@@ -66,39 +67,40 @@ void setup() {
 }
 
 void loop() {
-  cam.getSpecialBlocks(RED);
-  readPing();
+  //cam.getSpecialBlocks(RED);
+  //  readPing();
   readLines();
+  followLine();
+  /*
+    if (state == 0) {
+      findLine();
+    } else if (state == 1) {
+      followLine();
+      if (cSense == BLACK) {
+        drive(0);
+        state = 2;
+      }
+    } else if (state == 2) {
+      pickBlock();
+    } else if (state == 3) {
+      turnSpeed = 75;
+      turnLeft();
+    //   delay(1000);
+      if (pointToBlock(cam.blocks[0], 20)) {
+        drive(0);
+        state = 4;
+      }
 
-  if (state == 0) {
-    findLine();
-  } else if (state == 1) {
-    followLine();
-    if (cSense == BLACK) {
+    } else if (state == 4) {
+      turnSpeed = 80;
+      long startTime = millis();
+      while (millis() - startTime < 3000) { // time to drive to drop off location
+        pointToBlock(cam.blocks[0], 20);
+      }
       drive(0);
-      state = 2;
-    }
-  } else if (state == 2) {
-    pickBlock();
-  } else if (state == 3) {
-    turnSpeed = 75;
-    turnLeft();
- //   delay(1000);
-    if (pointToBlock(cam.blocks[0], 20)) {
+      state = 5;
+    } else if (state == 5) {
       drive(0);
-      state = 4;
-    }
+    }*/
 
-  } else if (state == 4) {
-    turnSpeed = 80;
-    long startTime = millis();
-    while (millis() - startTime < 3000) { // time to drive to drop off location
-      pointToBlock(cam.blocks[0], 20);
-    }
-    drive(0);
-    state = 5;
-  } else if (state == 5) {
-    drive(0);
-  }
-  
 }
