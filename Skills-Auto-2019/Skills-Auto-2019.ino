@@ -1,4 +1,5 @@
-
+// TODO
+// fix - Robot Drives Backwards forever after picking up block
 #include "PixyLib.h"
 #include <NewPing.h>
 #include <Servo.h>
@@ -67,40 +68,65 @@ void setup() {
 }
 
 void loop() {
-  //cam.getSpecialBlocks(RED);
-  //  readPing();
-  readLines();
-  followLine();
+  cam.getSpecialBlocks(RED);
+  readPing();
+
   /*
-    if (state == 0) {
-      findLine();
-    } else if (state == 1) {
-      followLine();
-      if (cSense == BLACK) {
-        drive(0);
-        state = 2;
-      }
-    } else if (state == 2) {
-      pickBlock();
-    } else if (state == 3) {
-      turnSpeed = 75;
-      turnLeft();
+    Drive Forward
+    Turn Left a little
+    Look for Lines
+    Align with line
+    PickBlock
+  */
+  readLines();
+  // followLine();
+  //   pickBlock();
+
+  //cam.printBlocks();
+  //pointToBlock(cam.blocks[0], 20);
+
+
+  if (state == 0) {
+    findLine();
+  } else if (state == 1) {
+    followLine();
+    if (cSense == BLACK) {
+      drive(0);
+      state = 2;
+    }
+  } else if (state == 2) { // Picks Up Block
+    pickBlock();
+  } else if (state == 3) { // Reverse
+    delay(-4);
+    delay(1500);
+    turnLeft();
+    delay(1500);
+    drive(5);
+    delay(2000);
+    while (1) {
+      drive(0);
+    }
+  }
+  /*drive(-4);
+    delay(1000);
+    turnSpeed = 75;
+    turnLeft();
     //   delay(1000);
-      if (pointToBlock(cam.blocks[0], 20)) {
-        drive(0);
-        state = 4;
-      }
+    if (pointToBlock(cam.blocks[0], 20)) {
+    drive(0);
+    state = 4;
+    }
 
     } else if (state == 4) {
-      turnSpeed = 80;
-      long startTime = millis();
-      while (millis() - startTime < 3000) { // time to drive to drop off location
-        pointToBlock(cam.blocks[0], 20);
-      }
-      drive(0);
-      state = 5;
+    turnSpeed = 80;
+    long startTime = millis();
+    while (millis() - startTime < 3000) { // time to drive to drop off location
+    pointToBlock(cam.blocks[0], 20);
+    }
+    drive(0);
+    state = 5;
     } else if (state == 5) {
-      drive(0);
-    }*/
-
+    drive(0);
+    }
+  */
 }
