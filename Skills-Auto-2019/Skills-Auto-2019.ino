@@ -12,6 +12,7 @@ void findLine(int driveSpeed = 3);
 
 //Servos
 Servo claw;
+Servo head; //Limits Up: Down:
 
 // Clockwise and counter-clockwise definitions.
 // Depending on how you wired your motors, you may need to swap.
@@ -58,9 +59,11 @@ void setup() {
   Serial.begin(9600);
   setupArdumoto(); // Set all pins as outputs
   claw.attach(9);
+  head.attach(10);
   cam.begin();
   claw.write(0); // Start claw open
-
+  setHead(9);
+  //head.write();//
   //Line sensors
   pinMode(6, INPUT);
   pinMode(5, INPUT);
@@ -68,6 +71,10 @@ void setup() {
 }
 
 void loop() {
+testHead();
+}
+
+void layout() {
   cam.getSpecialBlocks(RED);
   readPing();
 
@@ -129,4 +136,5 @@ void loop() {
     drive(0);
     }
   */
+
 }
