@@ -1,5 +1,3 @@
-// TODO
-// fix - Robot Drives Backwards forever after picking up block
 #include "PixyLib.h"
 #include <NewPing.h>
 #include <Servo.h>
@@ -12,7 +10,7 @@ void findLine(int driveSpeed = 3);
 
 //Servos
 Servo claw;
-Servo head; //Limits Up: Down:
+Servo head; //Limits Up:60 Down:30
 
 // Clockwise and counter-clockwise definitions.
 // Depending on how you wired your motors, you may need to swap.
@@ -53,7 +51,7 @@ int lSense = 0;
 int cSense = 0;
 int rSense = 0;
 
-int state = 0;
+int state = 3;
 
 void setup() {
   Serial.begin(9600);
@@ -71,7 +69,7 @@ void setup() {
 }
 
 void loop() {
-testHead();
+layout();
 }
 
 void layout() {
@@ -80,7 +78,7 @@ void layout() {
 
   /*
     Drive Forward
-    Turn Left a little
+    Turn Left
     Look for Lines
     Align with line
     PickBlock
@@ -104,37 +102,22 @@ void layout() {
   } else if (state == 2) { // Picks Up Block
     pickBlock();
   } else if (state == 3) { // Reverse
-    delay(-4);
+    drive(-4);
     delay(1500);
     turnLeft();
     delay(1500);
     drive(5);
     delay(2000);
-    while (1) {
-      drive(0);
-    }
-  }
-  /*drive(-4);
-    delay(1000);
-    turnSpeed = 75;
-    turnLeft();
-    //   delay(1000);
-    if (pointToBlock(cam.blocks[0], 20)) {
-    drive(0);
     state = 4;
-    }
-
-    } else if (state == 4) {
+  } else if (state == 4) {
     turnSpeed = 80;
     long startTime = millis();
-    while (millis() - startTime < 3000) { // time to drive to drop off location
-    pointToBlock(cam.blocks[0], 20);
+    while (millis() - startTime < 3000) { // drive to drop off location
+      pointToBlock(cam.blocks[0], 20);
     }
     drive(0);
     state = 5;
-    } else if (state == 5) {
+  } else if (state == 5) {
     drive(0);
-    }
-  */
-
+  }
 }
