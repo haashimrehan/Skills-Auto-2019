@@ -5,13 +5,13 @@ void findLine(int driveSpeed) {
 
   if (lSense == BLACK || rSense == BLACK || cSense == BLACK) {
     //driveSpeed = 1;
-    delay(200);
+    delay(100);
     drive(0);
     delay(1000);
     turnRight();
-    delay(1000);
+    delay(700);
     
-    state = 1;
+    state++;
   }
 }
 

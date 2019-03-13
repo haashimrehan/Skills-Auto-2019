@@ -51,7 +51,7 @@ int lSense = 0;
 int cSense = 0;
 int rSense = 0;
 
-int state = 3;
+int state = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -60,8 +60,7 @@ void setup() {
   head.attach(10);
   cam.begin();
   claw.write(0); // Start claw open
-  setHead(9);
-  //head.write();//
+  setHead(6);
   //Line sensors
   pinMode(6, INPUT);
   pinMode(5, INPUT);
@@ -69,13 +68,22 @@ void setup() {
 }
 
 void loop() {
-layout();
-}
-
-void layout() {
+  setHead(7);
   cam.getSpecialBlocks(RED);
   readPing();
+  readLines();
+  if (state == 0) {
+    pickBlock();
+  }
+  else if (state == 1) {
+    drive(0);
+  }
+  //drive(0);
+  //  layout();
+}
 
+
+void layout() {
   /*
     Drive Forward
     Turn Left
@@ -83,41 +91,59 @@ void layout() {
     Align with line
     PickBlock
   */
+  cam.getSpecialBlocks(RED);
+  readPing();
   readLines();
-  // followLine();
-  //   pickBlock();
-
-  //cam.printBlocks();
-  //pointToBlock(cam.blocks[0], 20);
 
 
   if (state == 0) {
-    findLine();
+
+    Serial.println(state);
+    turnLeft();
+    delay(600);
+    drive(4);
+    delay(1200);
+    /*  drive(4);
+      delay(1000);
+      turnLeft();
+      delay(1000);
+      drive(4);
+      delay(500);*/
+    state = 1;
+
   } else if (state == 1) {
+
+    Serial.println(state);
+    findLine();
+
+  } else if (state == 2) {
+
+    Serial.println(state);
     followLine();
     if (cSense == BLACK) {
       drive(0);
-      state = 2;
+      state = 3;
     }
-  } else if (state == 2) { // Picks Up Block
+  } else if (state == 3) { // Picks Up Block
     pickBlock();
-  } else if (state == 3) { // Reverse
+  } else if (state == 4) { // Reverse
+    Serial.println(state);
     drive(-4);
     delay(1500);
     turnLeft();
     delay(1500);
     drive(5);
     delay(2000);
-    state = 4;
-  } else if (state == 4) {
+    state = 5;
+  } else if (state == 5) {
     turnSpeed = 80;
     long startTime = millis();
     while (millis() - startTime < 3000) { // drive to drop off location
       pointToBlock(cam.blocks[0], 20);
     }
     drive(0);
-    state = 5;
-  } else if (state == 5) {
+    state = 6;
+  } else if (state == 6) {
     drive(0);
   }
 }

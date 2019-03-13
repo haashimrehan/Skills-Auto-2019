@@ -19,7 +19,7 @@ else if (lSense == BLACK) {
 void readPing() {
   fPing = fPingSens.ping();
   fPing /= US_ROUNDTRIP_CM;
-  // Serial.println(fPing);
+Serial.println(fPing);
 }
 
 void readLines() {
@@ -27,11 +27,12 @@ void readLines() {
   cSense = digitalRead(5);
   rSense = digitalRead(4);
 
-  
+  /*
     Serial.print(lSense);
     Serial.print(" ");
     Serial.print(cSense);
     Serial.print(" ");
     Serial.print(rSense);
     Serial.println();
+    */
 }
