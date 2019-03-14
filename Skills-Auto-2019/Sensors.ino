@@ -5,21 +5,22 @@ void followLine() {
     drive(3);
     //Serial.println("F");
   }
-else if (lSense == BLACK) {
+  else if (lSense == BLACK) {
     turnRight();
-   // Serial.println("L");
+    // Serial.println("L");
   }
   else if (rSense == BLACK) {
     turnLeft();
-   // Serial.println("R");
+    // Serial.println("R");
   }
 
 }
 
 void readPing() {
+  fPingSens.ping_median(2);
   fPing = fPingSens.ping();
   fPing /= US_ROUNDTRIP_CM;
-  // Serial.println(fPing);
+  Serial.println(fPing);
 }
 
 void readLines() {
@@ -27,11 +28,12 @@ void readLines() {
   cSense = digitalRead(5);
   rSense = digitalRead(4);
 
-  
+  /*
     Serial.print(lSense);
     Serial.print(" ");
     Serial.print(cSense);
     Serial.print(" ");
     Serial.print(rSense);
     Serial.println();
+  */
 }

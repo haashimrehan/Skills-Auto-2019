@@ -51,7 +51,7 @@ int lSense = 0;
 int cSense = 0;
 int rSense = 0;
 
-int state = 3;
+int state;
 
 void setup() {
   Serial.begin(9600);
@@ -60,22 +60,26 @@ void setup() {
   head.attach(10);
   cam.begin();
   claw.write(0); // Start claw open
-  setHead(9);
-  //head.write();//
+  setHead(2);
   //Line sensors
   pinMode(6, INPUT);
   pinMode(5, INPUT);
   pinMode(4, INPUT);
+  state = 0;
 }
 
 void loop() {
-layout();
+  //   setHead(7);
+  //drive(0);
+
+  //pickBlock();
+  layoutTwo();
+  //    turnLeft();
+
 }
 
-void layout() {
-  cam.getSpecialBlocks(RED);
-  readPing();
 
+void layoutTwo() {
   /*
     Drive Forward
     Turn Left
@@ -83,41 +87,70 @@ void layout() {
     Align with line
     PickBlock
   */
+  cam.getSpecialBlocks(RED);
+  readPing();
   readLines();
-  // followLine();
-  //   pickBlock();
-
-  //cam.printBlocks();
-  //pointToBlock(cam.blocks[0], 20);
-
 
   if (state == 0) {
-    findLine();
-  } else if (state == 1) {
-    followLine();
-    if (cSense == BLACK) {
-      drive(0);
-      state = 2;
-    }
-  } else if (state == 2) { // Picks Up Block
-    pickBlock();
-  } else if (state == 3) { // Reverse
-    drive(-4);
-    delay(1500);
+    Serial.println(state);
     turnLeft();
-    delay(1500);
+    delay(600);
+    drive(4);
+    delay(1200);
+    /*  drive(4);
+      delay(1000);
+      turnLeft();
+      delay(1000);
+      drive(4);
+      delay(500);*/
+    state = 1;
+
+  } else if (state == 1) {
+
+    Serial.println(state);
+    findLine();
+
+  } else if (state == 2) {
+    Serial.println(state);
+    long start = millis();
+    while (millis() - start < 1100) {
+      readLines();
+      followLine();
+    }
+    drive(-2);
+    delay(500);
+    drive(0);
+    delay(200);
+    state++;
+
+
+  } else if (state == 3) { // Picks Up Block
+
+    pickBlock();
+  } else if (state == 4) { // Reverse
+    Serial.println(state);
+    turnSpeed = 90;
+    drive(-3);
+    delay(1000);
+    turnLeft();
+    delay(2000);
     drive(5);
     delay(2000);
-    state = 4;
-  } else if (state == 4) {
-    turnSpeed = 80;
-    long startTime = millis();
-    while (millis() - startTime < 3000) { // drive to drop off location
-      pointToBlock(cam.blocks[0], 20);
-    }
-    drive(0);
     state = 5;
   } else if (state == 5) {
+    /* turnSpeed = 80;
+      long startTime = millis();
+      while (millis() - startTime < 3000) { // drive to drop off location
+       pointToBlock(cam.blocks[0], 20);
+      }
+      drive(0);
+    */
     drive(0);
+    claw.write(0);
+    state = 6;
+  } else if (state == 6) {
+    drive(0);
+  } else {
+    drive(-2);
   }
 }

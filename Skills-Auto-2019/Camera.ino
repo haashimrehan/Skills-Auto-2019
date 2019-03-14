@@ -1,5 +1,5 @@
 void pickBlock() {
-  if (fPing < 10) {
+  if (fPing < 11 && fPing != 0) {
     claw.write(180);
     drive(3);
     delay(500);
@@ -9,7 +9,7 @@ void pickBlock() {
     delay(1000);
     state++;
   } else {
-    pointToBlock(cam.blocks[0], 20);
+    pointToBlock(cam.blocks[0], 18);
   }
 }
 
@@ -31,6 +31,7 @@ boolean pointToBlock (Block target, int hedge) {//Points to a Block that is sent
 boolean alignRobot(Block target, int hedge) {
   int width = 320; // pixy cam width
   noBlock = false;
+  turnSpeed = 70;
   if (target.x > width / 2 + hedge) {
     //Turns Right until the blocks x val is within a range
     turnRight();
@@ -44,7 +45,7 @@ boolean alignRobot(Block target, int hedge) {
   else if (target.x > width / 2 - hedge && target.x < width / 2 + hedge) {
     //Stops once the block is within a range
     //Serial.println("CENTER");
-    drive(3);
+    drive(2);
     return true;
   }
   return false;
