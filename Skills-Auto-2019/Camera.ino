@@ -13,6 +13,21 @@ void pickBlock() {
   }
 }
 
+void pickBlock(int distance, int blockAccuracy) {
+  if (fPing < distance && fPing != 0) {
+    claw.write(180);
+    drive(3);
+    delay(500);
+    drive(0);
+    delay(500);
+    drive(-4);
+    delay(1000);
+    state++;
+  } else {
+    pointToBlock(cam.blocks[0], blockAccuracy);
+  }
+}
+
 boolean pointToBlock (Block target, int hedge) {//Points to a Block that is sent in
   if (cam.getBlock()) { //Check if there is blocks
     return alignRobot(target, hedge);
