@@ -16,7 +16,7 @@ void layoutOne() {
   if (state == 0) {
     Serial.println(state);
     turnRight();
-    delay(600);
+    delay(650);
     drive(4);
     delay(1000);
     state = 1;
@@ -48,13 +48,13 @@ void layoutOne() {
     pickBlock(9, 18);
   } else if (state == 4) { // Reverse
     Serial.println(state);
-    turnSpeed = 90;
+    turnSpeed = startTurnSpeed;
     drive(-3);
-    delay(1000);
+    delay(100);
     turnLeft();
-    delay(2000);
+    delay(800);
     drive(5);
-    delay(2000);
+    delay(1700);
     state = 5;
   } else if (state == 5) {
     drive(0);
@@ -68,6 +68,12 @@ void layoutOne() {
 }
 
 
+
+
+/*
+ * LAYOUT 2
+ */
+ 
 void layoutTwo() {
   /*
     turnLeft

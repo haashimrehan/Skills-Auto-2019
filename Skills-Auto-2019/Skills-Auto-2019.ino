@@ -29,6 +29,7 @@ Servo head; //Limits Up:60 Down:30
 #define PWMB 11 // PWM control (speed) for motor B
 
 int turnSpeed = 105;
+const int startTurnSpeed = 105;
 
 //Camera
 PixyLib cam;
@@ -69,5 +70,6 @@ void setup() {
 }
 
 void loop() {
+ //testClaw();
   layoutOne();
 }
