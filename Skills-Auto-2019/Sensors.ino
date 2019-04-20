@@ -20,7 +20,7 @@ void readPing() {
   fPingSens.ping_median(2);
   fPing = fPingSens.ping();
   fPing /= US_ROUNDTRIP_CM;
-  Serial.println(fPing);
+  //Serial.println(fPing);
 }
 
 void readLines() {
@@ -36,4 +36,11 @@ void readLines() {
     Serial.print(rSense);
     Serial.println();
   */
+}
+
+void updateSensors() {
+  cam.getSpecialBlocks(block);
+  readLines();
+  readPing();
+  gyroUpdate();
 }

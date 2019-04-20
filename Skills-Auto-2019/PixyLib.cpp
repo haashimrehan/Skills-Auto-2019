@@ -27,8 +27,6 @@ float PixyLib::getMidpoint (Block _blocks []) {//Returns the midpoint of the top
   return midpoint;
 }
 
-
-
 void PixyLib::getSpecialBlocks (int signiture) { //Signature: # between 1-7 that corresponds to a colour
   //Block blocks [pixy.getBlocks()] = {NULL};//Makes an Array of Blocks
   //Block blocks [pixy.getBlocks()];//Makes an Array of Blocks

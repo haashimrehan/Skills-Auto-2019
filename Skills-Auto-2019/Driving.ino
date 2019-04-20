@@ -1,3 +1,21 @@
+void drive(int lSpeed, int rSpeed) {
+   int leftDir = 0;
+  int rightDir = 0;
+  if (lSpeed > 0)
+    leftDir = REVERSE;
+  else
+    leftDir = FORWARD;
+
+  if (rSpeed > 0)
+    rightDir = FORWARD;
+  else
+    rightDir = REVERSE;
+
+  driveArdumoto(MOTOR_A, leftDir, abs(lSpeed));
+  driveArdumoto(MOTOR_B, rightDir, abs(rSpeed));
+
+}
+
 void drive(int speed) {
   int leftDir = 0;
   int rightDir = 0;
@@ -16,6 +34,24 @@ void drive(int speed) {
   driveArdumoto(MOTOR_B, rightDir, abs(newSpeedB));
 }
 
+
+void drive(double speed) {
+  int leftDir = 0;
+  int rightDir = 0;
+  if (speed < 0) {
+    leftDir = FORWARD;
+    rightDir = REVERSE;
+  } else if (speed > 0) {
+    leftDir = REVERSE;
+    rightDir = FORWARD;
+  }
+
+  int newSpeedA = map(speed, -10, 10, -255, 255);
+  int newSpeedB = map(speed, -10, 10, -255, 255);
+
+  driveArdumoto(MOTOR_A, leftDir, abs(newSpeedA));
+  driveArdumoto(MOTOR_B, rightDir, abs(newSpeedB));
+}
 
 // driveArdumoto drives 'motor' in 'dir' direction at 'spd' speed
 void driveArdumoto(byte motor, byte dir, byte spd)
@@ -42,8 +78,7 @@ void turnRight() {
   driveArdumoto(MOTOR_A, REVERSE, turnSpeed);
 }
 
-
-// stopArdumoto makes a motor stop
+// stops a motor
 void stopArdumoto(byte motor)
 {
   driveArdumoto(motor, 0, 0);
@@ -63,15 +98,4 @@ void setupArdumoto()
   digitalWrite(PWMB, LOW);
   digitalWrite(DIRA, LOW);
   digitalWrite(DIRB, LOW);
-}
-
-void testDriving() {
-  drive(10);
-  delay(2000);
-  turnLeft();
-  delay(2000);
-  turnRight();
-  delay(2000);
-  drive(-10);
-  delay(2000);
 }

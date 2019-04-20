@@ -16,7 +16,7 @@ class PixyLib {
   public:
     //Constructor
     PixyLib();
-    
+
     //Methods
     void begin();
     float getMidpoint (Block _blocks []);
@@ -28,7 +28,6 @@ class PixyLib {
     PixyI2C pixy;
     Block blocks[10];
   private:
-
 
 };
 #endif
