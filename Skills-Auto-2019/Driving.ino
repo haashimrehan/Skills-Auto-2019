@@ -1,5 +1,5 @@
 void drive(int lSpeed, int rSpeed) {
-   int leftDir = 0;
+  int leftDir = 0;
   int rightDir = 0;
   if (lSpeed > 0)
     leftDir = REVERSE;
@@ -34,6 +34,23 @@ void drive(int speed) {
   driveArdumoto(MOTOR_B, rightDir, abs(newSpeedB));
 }
 
+void driveSlow(int speed) {
+  int leftDir = 0;
+  int rightDir = 0;
+  if (speed < 0) {
+    leftDir = FORWARD;
+    rightDir = REVERSE;
+  } else if (speed > 0) {
+    leftDir = REVERSE;
+    rightDir = FORWARD;
+  }
+
+  int newSpeedA = map(speed, -20, 20, -255, 255);
+  int newSpeedB = map(speed, -20, 20, -255, 255);
+
+  driveArdumoto(MOTOR_A, leftDir, abs(newSpeedA));
+  driveArdumoto(MOTOR_B, rightDir, abs(newSpeedB));
+}
 
 void drive(double speed) {
   int leftDir = 0;

@@ -7,30 +7,27 @@
 #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
 #include "Wire.h"
 #endif
-
+//baud 19200
 #include <PID_v1.h>
 //#define PIN_INPUT 0
 //#define PIN_OUTPUT 3
 
 //Block PID
 double SetpointB, InputB, OutputB;
-double KpB = 2, KiB = 0, KdB = 5;
+double KpB = 5, KiB = 0, KdB = 10;
 PID blockPID(&InputB, &OutputB, &SetpointB, KpB, KiB, KdB, DIRECT);
 
 //turningPID
 double SetpointT, InputT, OutputT;
-double KpT = 10, KiT = 0, KdT = 0; //10,3,2
+double KpT = 9, KiT = 2, KdT = 1.5; //10,0,1  //9,2,1
 PID turnPID(&InputT, &OutputT, &SetpointT, KpT, KiT, KdT, DIRECT);
 
 //drivePID
 double SetpointD, InputD, OutputD;
-double KpD = 10, KiD = 3, KdD = 1;
+double KpD = 10, KiD = 0, KdD = 1;
 PID drivePID(&InputD, &OutputD, &SetpointD, KpD, KiD, KdD, DIRECT);
 
 MPU6050 mpu;
-
-//Default Parameters
-void findLine(int driveSpeed = 3);
 
 #define WHITE 0
 #define BLACK 1
@@ -80,8 +77,9 @@ int rSense = 0;
 int block; // 1 Yellow; 2 Blue; 3 Red
 int state;
 int layout; // The layout of the field (1-6)
+double currentAngle = 0;
 
-int currentAngle = 0;
+double absoluteAngle = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -93,14 +91,14 @@ void setup() {
   setHead(2);
 
   gyroSetup();
-
+  pinMode(7, INPUT);
   //Line sensors
   pinMode(6, INPUT);
   pinMode(5, INPUT);
   pinMode(4, INPUT);
 
   state = 0;
-  layout = -1;
+  layout = 1;
 
   // Initial color block to pick up
   if (layout == 1) {
@@ -120,28 +118,28 @@ void setup() {
   }
 
   long start = millis();
-  while (millis() - start < 3000) {
+  while (millis() - start < 3600) {
     Serial.print(".");
     gyroUpdate();
   }
 
+  absoluteAngle = currentAngle;
+
   initPID();
-  turn(90);
-  //straightPID();
-  //turnRightPID(90);
 }
+
 void initPID() {
   //blockPID
   InputB = 160;
   SetpointB = 160;
   blockPID.SetMode(AUTOMATIC);
-  blockPID.SetOutputLimits(-255, 255);
+  blockPID.SetOutputLimits(-200, 200);
 
   //turnPID
   InputT = currentAngle;
   SetpointT = 0;
   turnPID.SetMode(AUTOMATIC);
-  turnPID.SetOutputLimits(-255, 255);
+  turnPID.SetOutputLimits(-150, 150);
 
   //drivePID
   InputT = currentAngle;
@@ -152,15 +150,15 @@ void initPID() {
 
 void loop() {
 
-  if (state == 7) {
-    updateSensors();
-    pickBlockPID(9);
-    //pointToBlockPID(cam.blocks[0], 18);
-  } else {
-    drive(0);
-  }
-
   if (layout == 1) {
+    /*if (state == 0 ) {
+       //updateSensors();
+       readPing();
+       cam.getSpecialBlocks(block);
+       pickBlock(9, 18);
+      } else {
+       drive(0);
+      }*/
     layoutOne();
   } else if (layout == 2) {
     layoutTwo();
@@ -173,6 +171,4 @@ void loop() {
   } else if (layout == 6) {
     layoutSix();
   }
-  //drive(0);
-  // gyroUpdate();
 }

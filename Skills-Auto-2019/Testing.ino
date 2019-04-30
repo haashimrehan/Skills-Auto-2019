@@ -1,3 +1,8 @@
+void testGyro() {
+  gyroUpdate();
+  Serial.println(currentAngle);
+}
+
 void testCamera() {
   cam.getSpecialBlocks(RED);
   cam.printBlocks();

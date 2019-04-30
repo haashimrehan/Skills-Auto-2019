@@ -36,7 +36,7 @@ void turnLeft(int deg) {
   }
   while (currentAngle - deg) {
     gyroUpdate();
-
+/*
     Serial.print(currentAngle);
     Serial.print("  ");
     Serial.print(deg);
@@ -44,6 +44,7 @@ void turnLeft(int deg) {
     Serial.print(currentAngle - deg);
 
     Serial.println();
+    */
     turnLeft();
   }
 
@@ -57,7 +58,7 @@ void turnRight(int deg) {
   }
   while (currentAngle - deg != 0) {
     gyroUpdate();
-
+/*
     Serial.print(currentAngle);
     Serial.print("  ");
     Serial.print(deg);
@@ -65,6 +66,7 @@ void turnRight(int deg) {
     Serial.print(currentAngle - deg);
 
     Serial.println();
+  */
     turnRight();
   }
 }
@@ -109,10 +111,10 @@ void gyroSetup() {
   devStatus = mpu.dmpInitialize();
 
   // supply your own gyro offsets here, scaled for min sensitivity
-  mpu.setXGyroOffset(368);
-  mpu.setYGyroOffset(-89);
-  mpu.setZGyroOffset(-45);
-  mpu.setZAccelOffset(1223);
+  mpu.setXGyroOffset(369); //368
+  mpu.setYGyroOffset(-87); //-89
+  mpu.setZGyroOffset(-42); //-45
+  mpu.setZAccelOffset(1227); //1223
 
   // make sure it worked (returns 0 if so)
   if (devStatus == 0) {
@@ -218,7 +220,3 @@ void gyroUpdate() {
     digitalWrite(LED_PIN, blinkState);
   }
 }
-
-
-
-

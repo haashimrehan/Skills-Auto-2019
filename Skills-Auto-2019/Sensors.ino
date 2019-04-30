@@ -28,19 +28,19 @@ void readLines() {
   cSense = digitalRead(5);
   rSense = digitalRead(4);
 
-  /*
-    Serial.print(lSense);
-    Serial.print(" ");
-    Serial.print(cSense);
-    Serial.print(" ");
-    Serial.print(rSense);
-    Serial.println();
-  */
+
+  Serial.print(lSense);
+  Serial.print(" ");
+  Serial.print(cSense);
+  Serial.print(" ");
+  Serial.print(rSense);
+  Serial.println();
+
 }
 
 void updateSensors() {
   cam.getSpecialBlocks(block);
   readLines();
   readPing();
-  gyroUpdate();
+  // gyroUpdate();
 }
