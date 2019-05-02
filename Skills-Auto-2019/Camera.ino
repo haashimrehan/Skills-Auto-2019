@@ -1,4 +1,6 @@
 void pickBlock() {
+  readPing();
+  cam.getSpecialBlocks(block);
   if (fPing < 11 && fPing != 0) {
     claw.write(180);
     drive(3);
@@ -14,6 +16,8 @@ void pickBlock() {
 }
 
 void pickBlock(int distance, int blockAccuracy) {
+  readPing();
+  cam.getSpecialBlocks(block);
   if (fPing < distance && fPing != 0) {
     claw.write(180);
     drive(3);
@@ -25,7 +29,7 @@ void pickBlock(int distance, int blockAccuracy) {
     state++;
   } else {
     pointToBlock(cam.blocks[0], blockAccuracy);
-   // Serial.println(fPing);
+    // Serial.println(fPing);
   }
 }
 
@@ -107,18 +111,18 @@ void alignRobot(Block target, int hedge) {
   turnSpeed = 70; //80
   //Serial.print(target.x);
   //Serial.print("  ");
-  
+
   if (target.x > (width / 2) + hedge) {
     //Turns Right until the blocks x val is within a range
     turnRight();
-   // delay(100);
+    // delay(100);
     // driveArdumoto(MOTOR_B, REVERSE, 100);
     //driveArdumoto(MOTOR_A, REVERSE, 50);
-   //   Serial.println("RIGHT");
+    //   Serial.println("RIGHT");
   }
   else if (target.x < (width / 2) - hedge) {
     //Turns Left until the blocks x val is within a range
- //   Serial.println("LEFT");
+    //   Serial.println("LEFT");
     // driveArdumoto(MOTOR_B, FORWARD, 50);
     // driveArdumoto(MOTOR_A, FORWARD, 100);
     //drive(0,100);

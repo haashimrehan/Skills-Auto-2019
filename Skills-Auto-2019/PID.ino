@@ -1,4 +1,3 @@
-
 void straightPID (int timeToDrive) {
   int startTime = millis();
   SetpointD = currentAngle;
@@ -15,11 +14,11 @@ void straightPID (int timeToDrive) {
 }
 
 void turnLeftAbsolute(int deg) {
-   gyroUpdate();
+  gyroUpdate();
   int startTime = millis();
   if (absoluteAngle - deg <= 0) {
     deg = (absoluteAngle - deg) + 359;
-    } else {
+  } else {
     deg = absoluteAngle - deg;
   }
 
@@ -46,7 +45,7 @@ void turnLeftAbsolute(int deg) {
 }
 
 void turnRightAbsolute(int deg) {
-   gyroUpdate();
+  gyroUpdate();
   int startTime = millis();
   if (absoluteAngle + deg >= 360) {
     deg = (absoluteAngle + deg) - 360;

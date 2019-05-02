@@ -19,7 +19,7 @@ PID blockPID(&InputB, &OutputB, &SetpointB, KpB, KiB, KdB, DIRECT);
 
 //turningPID
 double SetpointT, InputT, OutputT;
-double KpT = 9, KiT = 2, KdT = 1.5; //10,0,1  //9,2,1
+double KpT = 9, KiT = 2, KdT = 1; //10,0,1  //9,2,1
 PID turnPID(&InputT, &OutputT, &SetpointT, KpT, KiT, KdT, DIRECT);
 
 //drivePID
