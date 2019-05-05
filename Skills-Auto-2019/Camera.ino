@@ -18,10 +18,10 @@ void pickBlock() {
 void pickBlock(int distance, int blockAccuracy) {
   readPing();
   cam.getSpecialBlocks(block);
-  if (fPing < distance && fPing != 0) {
+  if (frontButton == LOW) { //fPing < distance && fPing != 0) {
     claw.write(180);
-    drive(3);
-    delay(500);
+    //drive(3);
+    //delay(500);
     drive(0);
     delay(500);
     drive(-4);
@@ -132,7 +132,7 @@ void alignRobot(Block target, int hedge) {
   else if ((target.x > (width / 2) - hedge && target.x < (width / 2) + hedge) || fPing < 18) {
     //Stops once the block is within a range
     //Serial.println("CENTER");
-    driveSlow(5); //3
+    driveSlow(9); //3
     //delay(300);
   }
 }

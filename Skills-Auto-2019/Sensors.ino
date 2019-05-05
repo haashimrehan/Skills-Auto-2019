@@ -20,6 +20,7 @@ void readPing() {
   fPingSens.ping_median(2);
   fPing = fPingSens.ping();
   fPing /= US_ROUNDTRIP_CM;
+  frontButton = digitalRead(17);
   //Serial.println(fPing);
 }
 
@@ -29,13 +30,13 @@ void readLines() {
   rSense = digitalRead(4);
 
 
-  Serial.print(lSense);
-  Serial.print(" ");
-  Serial.print(cSense);
-  Serial.print(" ");
-  Serial.print(rSense);
-  Serial.println();
-
+  /*Serial.print(lSense);
+    Serial.print(" ");
+    Serial.print(cSense);
+    Serial.print(" ");
+    Serial.print(rSense);
+    Serial.println();
+  */
 }
 
 void updateSensors() {

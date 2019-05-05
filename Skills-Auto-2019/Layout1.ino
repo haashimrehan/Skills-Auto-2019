@@ -50,18 +50,18 @@ void layoutOne() {
     } else if (block == BLUE) {
       turnLeftAbsolute(30);
     } else if (block == RED) {
-      turnLeftAbsolute(120);
+      turnLeftAbsolute(115);
     }
 
     drive(0);
     delay(800);
     drive(5);
     if (block == YELLOW) {
-      delay(2400);
+      delay(2200);
     } else if (block == BLUE) {
-      delay(2500);
+      delay(2200);
     } else if (block == RED) {
-      delay(2500);
+      delay(2000);
     }
 
     state = 5;
@@ -70,11 +70,15 @@ void layoutOne() {
     state = 6;
   } else if (state == 6) {//turn for next block
     drive(-3);
-    delay(600);
+
+
+
     if (block == YELLOW) {
+      delay(700);
       turnLeftAbsolute(35);
     } else if (block == BLUE) {
-      turnLeftAbsolute(125);
+      delay(700);
+      turnLeftAbsolute(120);
     } else if (block == RED) {
       while (true) {
         drive(0);

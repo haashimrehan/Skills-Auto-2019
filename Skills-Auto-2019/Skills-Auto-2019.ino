@@ -7,10 +7,8 @@
 #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
 #include "Wire.h"
 #endif
-//baud 19200
+
 #include <PID_v1.h>
-//#define PIN_INPUT 0
-//#define PIN_OUTPUT 3
 
 //Block PID
 double SetpointB, InputB, OutputB;
@@ -19,7 +17,7 @@ PID blockPID(&InputB, &OutputB, &SetpointB, KpB, KiB, KdB, DIRECT);
 
 //turningPID
 double SetpointT, InputT, OutputT;
-double KpT = 9, KiT = 2, KdT = 1; //10,0,1  //9,2,1
+double KpT = 11, KiT = 2, KdT = 1; //10,0,1  //9,2,1
 PID turnPID(&InputT, &OutputT, &SetpointT, KpT, KiT, KdT, DIRECT);
 
 //drivePID
@@ -68,7 +66,8 @@ boolean noBlock;
 //Ultrasonic Sensor
 NewPing fPingSens(7, 7);
 int fPing; //distance from ultrasonic
-
+int frontButton = 1;
+  
 //Line Sensors
 int lSense = 0;
 int cSense = 0;
@@ -91,12 +90,15 @@ void setup() {
   setHead(2);
 
   gyroSetup();
+  pinMode(8, INPUT_PULLUP);
   pinMode(7, INPUT);
   //Line sensors
   pinMode(6, INPUT);
   pinMode(5, INPUT);
   pinMode(4, INPUT);
-
+  pinMode(17, INPUT_PULLUP);
+  int startButton = digitalRead(8);
+  frontButton = digitalRead(17);
   state = 0;
   layout = 1;
 
@@ -118,14 +120,16 @@ void setup() {
   }
 
   long start = millis();
-  while (millis() - start < 3600) {
+  while (millis() - start < 3500 || startButton == HIGH) {
     Serial.print(".");
+    startButton = digitalRead(8);
+    //Serial.println(startButton);
     gyroUpdate();
   }
-
   absoluteAngle = currentAngle;
 
   initPID();
+  delay(500);
 }
 
 void initPID() {
@@ -139,7 +143,7 @@ void initPID() {
   InputT = currentAngle;
   SetpointT = 0;
   turnPID.SetMode(AUTOMATIC);
-  turnPID.SetOutputLimits(-150, 150);
+  turnPID.SetOutputLimits(-170, 170);
 
   //drivePID
   InputT = currentAngle;
@@ -151,14 +155,6 @@ void initPID() {
 void loop() {
 
   if (layout == 1) {
-    /*if (state == 0 ) {
-       //updateSensors();
-       readPing();
-       cam.getSpecialBlocks(block);
-       pickBlock(9, 18);
-      } else {
-       drive(0);
-      }*/
     layoutOne();
   } else if (layout == 2) {
     layoutTwo();

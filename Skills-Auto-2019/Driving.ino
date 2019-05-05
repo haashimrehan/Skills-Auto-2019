@@ -47,8 +47,8 @@ void driveSlow(int speed) {
     rightDir = FORWARD;
   }
 
-  int newSpeedA = map(speed, -20, 20, -255, 255);
-  int newSpeedB = map(speed, -20, 20, -255, 255);
+  int newSpeedA = map(speed, -40, 40, -255, 255);
+  int newSpeedB = map(speed, -40, 40, -255, 255);
 
   driveArdumoto(MOTOR_A, leftDir, abs(newSpeedA));
   driveArdumoto(MOTOR_B, rightDir, abs(newSpeedB));
