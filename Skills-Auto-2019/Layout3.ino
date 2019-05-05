@@ -14,13 +14,16 @@ void layoutThree() {
   */
 
   if (state == 0) {
-    turnRightAbsolute(30);
-    straightPID(1000);
+    drive(5);
+    delay(1350);
+    turnRightAbsolute(90);
+    drive(5);
+    delay(500);
     state = 1;
   } else if (state == 1) {
     findLinePID();
   } else if (state == 2) { // Face Block
-    turnLeftAbsolute(20);
+    turnRightAbsolute(180);
     drive(-2);
     delay(500);
     drive(0);
@@ -32,9 +35,10 @@ void layoutThree() {
     drive(-3);
     delay(1000);
     turnLeftAbsolute(90);
-    straightPID(3000);
-    turnRightAbsolute(0);
-    straightPID(4000);
+    straightPID(2000);
+    turnRightAbsolute(180);
+    straightPID(1000);
+    drive(0);
     state = 5;
   } else if (state == 5) {
     dropBlock();

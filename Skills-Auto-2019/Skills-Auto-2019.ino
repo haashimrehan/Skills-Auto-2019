@@ -67,7 +67,7 @@ boolean noBlock;
 NewPing fPingSens(7, 7);
 int fPing; //distance from ultrasonic
 int frontButton = 1;
-  
+
 //Line Sensors
 int lSense = 0;
 int cSense = 0;
@@ -100,7 +100,7 @@ void setup() {
   int startButton = digitalRead(8);
   frontButton = digitalRead(17);
   state = 0;
-  layout = 2;
+  layout = 4;
 
   // Initial color block to pick up
   if (layout == 1) {
@@ -108,9 +108,9 @@ void setup() {
   } else if (layout == 2) {
     block = RED;
   } else if (layout == 3) {
-    block = RED;
+    block = YELLOW; //RED;
   } else if (layout == 4) {
-    block = YELLOW;
+    block = BLUE;
   } else if (layout == 5) {
     block = RED;
   } else if (layout == 6) {

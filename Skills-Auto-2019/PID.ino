@@ -18,6 +18,8 @@ void turnLeftAbsolute(int deg) {
   int startTime = millis();
   if (absoluteAngle - deg <= 0) {
     deg = (absoluteAngle - deg) + 360;
+  } else if (absoluteAngle - deg >= 360) {
+    deg = absoluteAngle + deg;
   } else {
     deg = absoluteAngle - deg;
   }
