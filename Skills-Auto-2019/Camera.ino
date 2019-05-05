@@ -28,8 +28,16 @@ void pickBlock(int distance, int blockAccuracy) {
     delay(800);
     state++;
   } else {
-    pointToBlock(cam.blocks[0], blockAccuracy);
-    // Serial.println(fPing);
+    if (layout == 2) {
+      if (cam.blocks[0].x <= 80 && cam.getBlock() && (block == RED || block == BLUE)) {
+        pointToBlock(cam.blocks[1], blockAccuracy);
+      } else {
+        pointToBlock(cam.blocks[0], blockAccuracy);
+      }
+    } else {
+      pointToBlock(cam.blocks[0], blockAccuracy);
+      // Serial.println(fPing);
+    }
   }
 }
 

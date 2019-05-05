@@ -26,7 +26,8 @@ void readPing() {
 
 void readLines() {
   lSense = digitalRead(6);
-  cSense = digitalRead(5);
+  //cSense = digitalRead(5);
+  cSense = WHITE; //broken
   rSense = digitalRead(4);
 
 
