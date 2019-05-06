@@ -9,47 +9,34 @@ void layoutSix() {
   */
 
   if (state == 0) {
-    drive(3);
-    delay(500);
-    turnRight();
-    delay(2000);
+    turnLeftAbsolute(45);
+    straightPID(2000);
+
     state = 1;
   } else if (state == 1) {
-    findLine();
+    findLinePID();
   } else if (state == 2) {
-    turnRight();
-    delay(1000);
-
-    long start = millis();
-    while (millis() - start < 1100) {
-      readLines();
-      followLine();
-    }
-
-    drive(-2);
-    delay(500);
+    turnLeftAbsolute(90);
+    drive(-3);
+    delay(600);
     drive(0);
-    delay(200);
+    delay(500);
     state++;
   } else if (state == 3) { // Picks Up Block
-    pickBlock();
-  } else if (state == 4) { // Reverse
-    turnSpeed = 90;
+    pickBlock(9, 18);
+  } else if (state == 4) { // Reverse and turn
     drive(-4);
-    delay(7000);
-    state++;
-  } else if (state == 5) {
-    drive(3);
-    delay(300);
-    turnRight();
-    delay(1000);
-    drive(3);
-    delay(200);
-    state++;
-  } else if (state == 6) {
-    dropBlock();
+    delay(1800);//1900
+    turnRightAbsolute(0);
+    straightPID(4000);
     drive(0);
     state++;
+  } else if (state == 5) {
+    dropBlock();
+    state++;
+  } else if (state == 6) {
+    drive(0);
+    //state++;
   } else {
     drive(0);
   }

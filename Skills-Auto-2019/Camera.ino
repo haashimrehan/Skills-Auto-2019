@@ -119,7 +119,12 @@ boolean alignRobotPID(Block target) {
 }
 
 void alignRobot(Block target, int hedge) {
-  int width = 350; // pixy cam width
+  int width = 320;
+  if (layout == 6) {
+    width = 336; // pixy cam width
+  } else {
+    width = 350; // pixy cam width
+  }
   //noBlock = false;
   turnSpeed = 70; //80
   //Serial.print(target.x);
