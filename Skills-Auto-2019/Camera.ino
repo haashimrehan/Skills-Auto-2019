@@ -24,7 +24,10 @@ void pickBlock(int distance, int blockAccuracy) {
     //delay(500);
     drive(0);
     delay(500);
-    if (layout != 4) {
+    if (layout == 5) {
+      drive(-4);
+      delay(650);
+    } else if (layout != 4) {
       drive(-4);
       delay(800);
     }

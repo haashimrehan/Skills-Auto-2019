@@ -52,7 +52,7 @@ void turnRightAbsolute(int deg) {
   if (absoluteAngle + deg >= 360) {
     deg = (absoluteAngle + deg) - 360;
   } else if ((absoluteAngle + deg) <= 0) {
-    deg = absoluteAngle - deg;
+    deg = (absoluteAngle - deg) + 360;
   } else {
     deg = absoluteAngle + deg;
   }

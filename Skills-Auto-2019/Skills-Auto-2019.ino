@@ -100,7 +100,7 @@ void setup() {
   int startButton = digitalRead(8);
   frontButton = digitalRead(17);
   state = 0;
-  layout = 4;
+  layout = 5;
 
   // Initial color block to pick up
   if (layout == 1) {
@@ -112,7 +112,7 @@ void setup() {
   } else if (layout == 4) {
     block = BLUE;
   } else if (layout == 5) {
-    block = RED;
+    block = BLUE;
   } else if (layout == 6) {
     block = YELLOW;
   } else {
